@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using TicketingClients.Model;
+using TicketingHelpers;
 
 namespace TicketingClients.Context
 {
@@ -13,11 +14,8 @@ namespace TicketingClients.Context
         DbSet<Ticket> Ticket { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())  //forzo il config builder ad andare a cercare il file in esecuzione del programma
-                .AddJsonFile("appsetings.json")
-                .Build();
-            string connString = config.GetConnectionString("TicketDb");
+            
+            string connString = Config.GetConnectionString("TicketDb");
            // config.GetSection("ConnectionString")["TicketDb"]; alternativa
             optionsBuilder.UseSqlServer("connString");
         }

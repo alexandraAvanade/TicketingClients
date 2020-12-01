@@ -8,7 +8,7 @@ namespace TicketingClients.Model
     {
         public int Id { get; set; }
         public string Comments { get; set; }
-        public int TicketId { get;set }//foregin key=>Ticket
+        public int TicketId { get; set; }//foregin key=>Ticket
         public virtual Ticket Ticket { get; set; }//multi navigation prop
     }
 }

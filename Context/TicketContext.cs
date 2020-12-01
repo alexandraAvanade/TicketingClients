@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using TicketingClients.Model;
+using TicketingClients.Model.Configuration;
 using TicketingHelpers;
 
 namespace TicketingClients.Context
@@ -20,28 +21,8 @@ namespace TicketingClients.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var ticketBilder = modelBuilder.Entity<Ticket>();
-
-            ticketBilder
-                 .HasKey(t => t.Id); //non e necessario se si rispettano le convenzione
-
-            ticketBilder
-                .Property(t => t.Title)
-                .HasMaxLength(100)
-                .IsRequired();
-
-            ticketBilder
-                .Property(t => t.Description)
-                .HasMaxLength(500);
-
-            ticketBilder
-                .Property(t => t.Category)
-                .IsRequired();
-
-            ticketBilder
-                .Property(t => t.Requestor)
-                .HasMaxLength(50)
-                .IsRequired();
+            modelBuilder.ApplyConfiguration<Ticket>(new TicketConfig());
+            modelBuilder.ApplyConfiguration<Note>(new NoteConfig());
         }
        
     }

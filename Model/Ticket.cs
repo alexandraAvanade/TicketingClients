@@ -6,6 +6,10 @@ namespace TicketingClients.Model
 {
    public class Ticket
     {
+        public Ticket()
+        {
+            Notes = new List<Note>();
+        }
         public int Id { get; set; }
         public DateTime IssueDate { get; set; }
         public string Title { get; set; }

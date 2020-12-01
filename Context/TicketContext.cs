@@ -16,11 +16,33 @@ namespace TicketingClients.Context
         {
             
             string connString = Config.GetConnectionString("TicketDb");
-           // config.GetSection("ConnectionString")["TicketDb"]; alternativa
-            optionsBuilder.UseSqlServer("connString");
+            optionsBuilder.UseSqlServer(connString);
         }
-        protected TicketContext()
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            var ticketBilder = modelBuilder.Entity<Ticket>();
+
+            ticketBilder
+                 .HasKey(t => t.Id); //non e necessario se si rispettano le convenzione
+
+            ticketBilder
+                .Property(t => t.Title)
+                .HasMaxLength(100)
+                .IsRequired();
+
+            ticketBilder
+                .Property(t => t.Description)
+                .HasMaxLength(500);
+
+            ticketBilder
+                .Property(t => t.Category)
+                .IsRequired();
+
+            ticketBilder
+                .Property(t => t.Requestor)
+                .HasMaxLength(50)
+                .IsRequired();
         }
+       
     }
 }
